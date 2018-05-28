@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Register a New user</h1>
+{% endblock %}
+
+{% block body %}
+<div class="container">
+	<form method="post">
+		{% if form.subject.errors %}
+		    <ol>
+		    {% for error in form.subject.errors %}
+		        <li><strong>{{ error|escape }}</strong></li>
+		    {% endfor %}
+		    </ol>
+		{% endif %}
+		
+		{% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit"> Register </button>
+	</form>
+</div>
+{% endblock %}

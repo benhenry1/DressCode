@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<h1>Account Home</h1>
+{% endblock %}
+
+{% block body %}
+
+	{% if user.is_authenticated %}
+		<p> you're logged in</p>
+	{% else %}
+		<p> You're not logged in </p>
+	{% endif %}
+
+{% endblock %}
