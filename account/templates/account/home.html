@@ -7,9 +7,12 @@
 {% block body %}
 
 	{% if user.is_authenticated %}
-		<p> you're logged in</p>
+		<h3> You're logged in</h3>
+		<p>Username: {{ user.username }}</p>
+		<p>Full Name: {{ user.fist_name }} {{ user.last_name }}</p>
+		<p>Email: {{ user.email }}</p>
 	{% else %}
-		<p> You're not logged in </p>
+		<p> You're not logged in, and you have a bug in your view </p>
 	{% endif %}
 
 {% endblock %}

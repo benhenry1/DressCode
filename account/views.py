@@ -4,12 +4,17 @@ from account.forms import RegistrationForm
 
 # Create your views here.
 def login(request):
-	if request.user.is_authenticated():
+	if request.user.is_authenticated:
 		return redirect('/account')
 	return render(request, 'account/login.html')
 
 def home(request):
-	return render(request, 'account/home.html')
+	if not request.user.is_authenticated:
+		return redirect('/account/login')
+
+	ctxt = {'user': request.user}
+
+	return render(request, 'account/home.html', ctxt)
 
 def register(request):
 	if request.method == "POST":
