@@ -2,17 +2,21 @@
 
 {% block head %}
 <h1>Account Home</h1>
+<ul>
+	<li><a href="">My Designs</a></li>
+	<li><a href="">My Activity Feed</a></li>
+	<
+</ul>
 {% endblock %}
 
 {% block body %}
 
-	{% if user.is_authenticated %}
-		<h3> You're logged in</h3>
-		<p>Username: {{ user.username }}</p>
-		<p>Full Name: {{ user.fist_name }} {{ user.last_name }}</p>
-		<p>Email: {{ user.email }}</p>
-	{% else %}
-		<p> You're not logged in, and you have a bug in your view </p>
-	{% endif %}
+	<h3> Hi {{ user.first_name }}</h3>
+	<p>Username: {{ user.username }}</p>
+	<p>Full Name: {{ user.fist_name }} {{ user.last_name }}</p>
+	<p>Email: {{ user.email }}</p>
+
+	<h3> Your Designs </h3>
+	<p> TODO </p>
 
 {% endblock %}

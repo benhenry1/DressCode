@@ -9,6 +9,14 @@ class Profile(models.Model):
 	city = models.CharField(max_length=50, default='')
 
 
+#TODO: Nail down Design model
+class Design(models.Model):
+	user = models.ManyToManyField(User)
+	image = models.ImageField()
+	description = models.TextField(max_length=250, default='')
+	#Add to collecton/playlist/whatever?
+	
+
 
 def create_profile(sender, **kwargs):
 	if kwargs['created']:

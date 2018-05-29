@@ -1,12 +1,15 @@
 from django.shortcuts import render, render_to_response, redirect
 from django.http import HttpResponse
-from account.forms import RegistrationForm, EditProfileForm
+from account.forms import RegistrationForm, EditProfileForm, UploadForm
 from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django import forms
 from account.models import Profile
 
 # Create your views here.
+def index(request):
+	return HttpResponse("<h1>This is the index page</h1>")
+
 def login(request):
 	if request.user.is_authenticated:
 		return redirect('/account/home')
@@ -58,3 +61,21 @@ def edit(request):
 				'form': form}
 
 		return render(request, 'account/edit.html', ctxt)
+
+@login_required
+def upload(request):
+	if request.method == "POST":
+		#handle post
+		form = UploadForm(request.POST)
+		if form.is_valid():
+			design = form.save(commit=False)
+			design.user = request.user
+			design.save();
+			return redirect('/account')
+		else:
+			return render_to_response('upload.html', {'form': form})
+	else:
+		form = UploadForm()
+
+		ctxt = {'form': form}
+		return render(request, 'upload.html', ctxt)
