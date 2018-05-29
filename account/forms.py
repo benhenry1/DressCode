@@ -1,6 +1,7 @@
 from django.contrib.auth.models import User
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from account.models import Profile
 
 class RegistrationForm(UserCreationForm):
 	email = forms.EmailField(required=True)
@@ -27,4 +28,15 @@ class RegistrationForm(UserCreationForm):
 			user.save()
 
 		return
+
+class EditProfileForm(forms.ModelForm):
+
+	class Meta:
+		model = Profile
+		fields = [
+			'city',
+			'description'
+		]
+
+	pass
 

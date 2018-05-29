@@ -22,5 +22,7 @@ urlpatterns = [
 	path('', views.home),
 	path('home/', views.home),
 	path('login/', login, {'template_name': 'account/login.html'}),
+	path('logout/', views.log_out),
 	path('register/', views.register),
+	path('edit/', views.edit),
 ]
