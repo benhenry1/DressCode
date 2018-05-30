@@ -11,11 +11,12 @@ class Profile(models.Model):
 
 #TODO: Nail down Design model
 class Design(models.Model):
-	user = models.ManyToManyField(User)
-	image = models.ImageField()
+	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='designs/')
 	description = models.TextField(max_length=250, default='')
+	uploaded_at = models.DateTimeField(auto_now_add=True)
 	#Add to collecton/playlist/whatever?
-	
+
 
 
 def create_profile(sender, **kwargs):

@@ -33,10 +33,10 @@ class EditProfileForm(forms.ModelForm):
 
 	class Meta:
 		model = Profile
-		fields = [
+		fields = (
 			'city',
-			'description'
-		]
+			'description',
+		)
 
 	pass
 
@@ -44,9 +44,9 @@ class UploadForm(forms.ModelForm):
 
 	class Meta:
 		model = Design
-		fields = [
+		fields = (
 			'image',
-			'description'
-		]
+			'description',
+		)
 
 	pass

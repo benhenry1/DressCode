@@ -1,10 +1,12 @@
-from django.shortcuts import render, render_to_response, redirect
+from django.shortcuts import render, render_to_response, redirect, get_object_or_404
 from django.http import HttpResponse
 from account.forms import RegistrationForm, EditProfileForm, UploadForm
 from django.contrib.auth import logout
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django import forms
-from account.models import Profile
+from account.models import Profile, Design
+from django.template import RequestContext
 
 # Create your views here.
 def index(request):
@@ -21,10 +23,13 @@ def log_out(request):
 
 @login_required
 def home(request):
+	profile = Profile.objects.get(user=request.user)
+	posts = Design.objects.all().filter(user=request.user)
 	if not request.user.is_authenticated:
 		return redirect('/account/login')
 
-	ctxt = {'user': request.user}
+	ctxt = {'profile': profile,
+			'posts': posts}
 
 	return render(request, 'account/home.html', ctxt)
 
@@ -62,20 +67,36 @@ def edit(request):
 
 		return render(request, 'account/edit.html', ctxt)
 
+
 @login_required
 def upload(request):
 	if request.method == "POST":
 		#handle post
-		form = UploadForm(request.POST)
+		form = UploadForm(request.POST, request.FILES)
+		print(request.FILES, request.POST)
 		if form.is_valid():
-			design = form.save(commit=False)
-			design.user = request.user
-			design.save();
+			post = form.save(commit=False)
+			post.user = request.user
+			post.save()
 			return redirect('/account')
 		else:
-			return render_to_response('upload.html', {'form': form})
+
+			return render(request, 'upload.html', {'form': form})
 	else:
 		form = UploadForm()
 
 		ctxt = {'form': form}
 		return render(request, 'upload.html', ctxt)
+
+
+def view_profile(request, username):
+	tgt_user = get_object_or_404(User, username=username)
+	target = Profile.objects.get(user=tgt_user)
+	target_posts = Design.objects.all().filter(user=tgt_user)
+
+	if target:
+		#Show their profile
+		ctxt = { 'profile': target, 'posts': target_posts }
+		return render(request, 'account/home.html', ctxt)
+	else:
+		return HttpResponse("<h1> No matching users </h1>")

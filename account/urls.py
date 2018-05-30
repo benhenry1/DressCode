@@ -25,4 +25,6 @@ urlpatterns = [
 	path('logout/', views.log_out),
 	path('register/', views.register),
 	path('edit/', views.edit),
+    path('<slug:username>/', views.view_profile),
 ]
+
