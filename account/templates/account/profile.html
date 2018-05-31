@@ -1,10 +1,20 @@
 {% extends 'base.html' %}
 
+
 {% block head %}
 <h1>{{ profile.user.username }}'s Profile</h1>
 {% if profile.image %}
 <image src="{{ profile.image.url }}" style="max-width:240px">
 {%endif%}
+
+{% load activity_tags %}
+<a href="{% follow_url profile.user %}">
+	{% if request.user|is_following:profile.user %}
+	Unfollow
+	{% else %}
+	Follow
+	{% endif %}
+	</a>
 {% endblock %}
 
 {% block body %}
@@ -15,6 +25,15 @@
 
 	<p>City: {{ profile.city }}</p>
 	<p>Description: {{ profile.description }}</p>
+
+	<h3> Their Activity </h3>
+	<ul>
+	{% for action in stream %}
+		<li>
+	    {% display_action action %}
+		</li>
+	{% endfor %}
+	</ul>
 
 	<h3> {{ profile.user.first_name }}'s Designs </h3>
 	{% for post in posts %}

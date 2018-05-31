@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
+{% load activity_tags %}
 
 {% block head %}
 <h1>Account Home</h1>
 <ul>
 	<li><a href="">My Designs</a></li>
 	<li><a href="">My Activity Feed</a></li>
-	<
 </ul>
 {% endblock %}
 
@@ -16,11 +16,24 @@
 	<image src="{{ profile.image.url }}" style="max-width:240px">
 	{%endif%}
 	<p>Username: {{ profile.user.username }}</p>
-	<p>Full Name: {{ profile.user.fist_name }} {{ profile.user.last_name }}</p>
+	<p>Full Name: {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
 	<p>Email: {{ profile.user.email }}</p>
 
 	<p>City: {{ profile.city }}</p>
 	<p>Description: {{ profile.description }}</p>
+
+
+	<h3>Your Feed</h3>
+	<ul>
+	{% for action in stream %}
+		<li>
+	    {% display_action action %}
+		</li>
+	{% endfor %}
+	</ul>
+
+
+
 
 	<h3> Your Designs </h3>
 	{% for post in posts %}

@@ -16,6 +16,8 @@ from django.contrib.auth.decorators import login_required
 from django import forms
 from account.models import Profile, Design
 from django.template import RequestContext
+from actstream import action
+from actstream.models import user_stream, actor_stream
 
 # Create your views here.
 def index(request):
@@ -34,11 +36,14 @@ def log_out(request):
 def home(request):
 	profile = Profile.objects.get(user=request.user)
 	posts = Design.objects.all().filter(user=request.user)
+	stream = user_stream(request.user, with_user_activity=True)
+
 	if not request.user.is_authenticated:
 		return redirect('/account/login')
 
 	ctxt = {'profile': profile,
-			'posts': posts}
+			'posts': posts,
+			'stream': stream}
 
 	return render(request, 'account/home.html', ctxt)
 
@@ -103,7 +108,13 @@ def view_profile(request, username):
 	target = Profile.objects.get(user=tgt_user)
 	target_posts = Design.objects.all().filter(user=tgt_user)
 
-	ctxt = { 'profile': target, 'posts': target_posts }
+	stream = actor_stream(tgt_user)
+
+	ctxt = { 
+		'profile': target, 
+		'posts': target_posts,
+		'stream': stream
+	}
 	return render(request, 'account/profile.html', ctxt)
 
 @login_required

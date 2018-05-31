@@ -69,6 +69,10 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries':{
+            'template_tags': 'actstream.templatetags.activity_tags',
+
+            }
         },
     },
 ]
