@@ -5,6 +5,7 @@ from django.db.models.signals import post_save
 # Create your models here.
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE)
+	image = models.ImageField(upload_to='profile_pictures/', blank=True)
 	description = models.TextField(max_length=250, default='')
 	city = models.CharField(max_length=50, default='')
 

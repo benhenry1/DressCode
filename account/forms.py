@@ -34,6 +34,7 @@ class EditProfileForm(forms.ModelForm):
 	class Meta:
 		model = Profile
 		fields = (
+			'image',
 			'city',
 			'description',
 		)

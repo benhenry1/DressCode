@@ -1,7 +1,16 @@
-from django.shortcuts import render, render_to_response, redirect, get_object_or_404
+from django.shortcuts import (
+	render, 
+	render_to_response, 
+	redirect, get_object_or_404
+	)
 from django.http import HttpResponse
-from account.forms import RegistrationForm, EditProfileForm, UploadForm
-from django.contrib.auth import logout
+from account.forms import ( 
+	RegistrationForm, 
+	EditProfileForm, 
+	UploadForm
+	)
+from django.contrib.auth import logout, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django import forms
@@ -50,10 +59,10 @@ def register(request):
 @login_required
 def edit(request):
 	#Example of how to get an instance of a model
-	profile = Profile.objects.get(user=request.user)
+	profile = get_object_or_404(Profile, user=request.user)
 
 	if request.method == "POST":
-		form = EditProfileForm(request.POST, instance=profile)
+		form = EditProfileForm(request.POST, request.FILES, instance=profile)
 		if form.is_valid():
 			form.save()
 			return redirect('/account')
@@ -95,4 +104,22 @@ def view_profile(request, username):
 	target_posts = Design.objects.all().filter(user=tgt_user)
 
 	ctxt = { 'profile': target, 'posts': target_posts }
-	return render(request, 'account/home.html', ctxt)
+	return render(request, 'account/profile.html', ctxt)
+
+@login_required
+def change_password(request):
+	
+	if request.method == 'POST':
+		form = PasswordChangeForm(data=request.POST, user=request.user)
+
+		if form.is_valid():
+			form.save()
+			update_session_auth_hash(request, user=form.user)
+			return redirect('/account')
+		else:
+			return render(request, 'account/change-password.html', {'form': form})
+	else:
+		form = PasswordChangeForm(user=request.user)
+
+		ctxt = {'form': form}
+		return render(request, "account/change-password.html", ctxt)

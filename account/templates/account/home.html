@@ -12,6 +12,9 @@
 {% block body %}
 
 	<h3> Hi {{ profile.user.first_name }}</h3>
+	{%if profile.image %}
+	<image src="{{ profile.image.url }}" style="max-width:240px">
+	{%endif%}
 	<p>Username: {{ profile.user.username }}</p>
 	<p>Full Name: {{ profile.user.fist_name }} {{ profile.user.last_name }}</p>
 	<p>Email: {{ profile.user.email }}</p>
@@ -22,7 +25,8 @@
 	<h3> Your Designs </h3>
 	{% for post in posts %}
 		<p>Posted: {{ post.uploaded_at }}
-		<img style="max-width: 50%" src="{{ post.image.url }}">
+		<img style="max-width: 300px" src="{{ post.image.url }}">
 		<p class="description"> Description: {{ post.description }} </p>
 	{%endfor%}
+	<a href="/upload">Upload A New Design</a>
 {% endblock %}

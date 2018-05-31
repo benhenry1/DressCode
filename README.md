@@ -39,3 +39,11 @@ This is where the actual HTML templates are stored. In the top level of /templat
 To design the actual pages (found under /templates/accounts), all you have to do is define the HTML that will replace the "head" and "body" blocks in "base.html". A good example is in /templates/accounts/home.html. You can see that it _extends base.html_, or in other words it's going to use the Base template. Then, all I do after that is define a Title in the _head_ block, and some content in the _body_ block. Home is also a good example because it shows how you can use the template language to give dynamic content (shows something different when the user is logged out vs logged in).
 
 
+
+## Run Instructions
+1. Start dev server:
+$ python manage.py runserver
+2. If you wish to use the password reset, start a local SMTP server on port 1025
+$ python -m smtpd -n -c DebuggingServer localhost:1025
+
+

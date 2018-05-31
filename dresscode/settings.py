@@ -136,3 +136,6 @@ LOGIN_URL = '/account/login'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
