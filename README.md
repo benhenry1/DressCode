@@ -6,8 +6,10 @@
 - Install Python3 (https://www.python.org/downloads/)
 - Install Django (https://www.djangoproject.com/download/)
   - Developed on Django 2.0.5
+- Install ActivityStream
+> pip install django-activity-stream
 
-#### Run Development Server (Linux)
+#### Run Development Server (Linux, probs similar for windows)
 1. Clone the repo
 2. Open a terminal in the root directory
 > $ python manage.py runserver
