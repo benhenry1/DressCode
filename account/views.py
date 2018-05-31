@@ -94,9 +94,5 @@ def view_profile(request, username):
 	target = Profile.objects.get(user=tgt_user)
 	target_posts = Design.objects.all().filter(user=tgt_user)
 
-	if target:
-		#Show their profile
-		ctxt = { 'profile': target, 'posts': target_posts }
-		return render(request, 'account/home.html', ctxt)
-	else:
-		return HttpResponse("<h1> No matching users </h1>")
+	ctxt = { 'profile': target, 'posts': target_posts }
+	return render(request, 'account/home.html', ctxt)
