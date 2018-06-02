@@ -5,14 +5,17 @@ from actstream import action
 
 # Create your models here.
 class Design(models.Model):
-	user = models.ForeignKey(User, on_delete=models.CASCADE)
+	user = models.ForeignKey(User, on_delete=models.PROTECT)
+	title = models.TextField(max_length=250, default='')
 	image = models.ImageField(upload_to='designs/')
-	description = models.TextField(max_length=250, default='')
+	description = models.TextField(max_length=500, default='')
 	uploaded_at = models.DateTimeField(auto_now_add=True)
 	#Add to collecton/playlist/whatever?
 
 	def __str__(self):
-		return str(self.image.url)
+		return str(self.user.username) + " " + str(self.title)
+
+
 
 #Move to new app
 def design_handler(sender, **kwargs):
@@ -21,3 +24,16 @@ def design_handler(sender, **kwargs):
 
 #Move to new app
 post_save.connect(design_handler, sender=Design)
+
+
+class Comment(models.Model):
+	user = models.ForeignKey(User, on_delete=models.PROTECT)
+	design = models.ForeignKey(Design, on_delete=models.CASCADE)
+	comment = models.TextField(max_length=500, default='')
+
+	def __str__(self):
+		return str(self.user.username) + " " + str(self.design.title)
+
+#TODO: Implement notifications
+def comment_notify_handler(sender, **kwargs):
+	pass

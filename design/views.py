@@ -4,9 +4,9 @@ from django.shortcuts import (
 	redirect, get_object_or_404
 	)
 from django.http import HttpResponse
-from design.forms import UploadForm
+from design.forms import UploadForm, CommentForm
 from django.contrib.auth.models import User
-from design.models import Design
+from design.models import Design, Comment
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -18,7 +18,6 @@ def upload(request):
 	if request.method == "POST":
 		#handle post
 		form = UploadForm(request.POST, request.FILES)
-		print(request.FILES, request.POST)
 		if form.is_valid():
 			post = form.save(commit=False)
 			post.user = request.user
@@ -32,3 +31,21 @@ def upload(request):
 
 		ctxt = {'form': form}
 		return render(request, 'design/upload.html', ctxt)
+
+def view_design(request, id):
+	design = get_object_or_404(Design, id=id)
+
+	if request.method == "POST":
+		form = CommentForm(request.POST)
+		if form.is_valid():
+			comment = form.save(commit=False)
+			comment.user = request.user
+			comment.design = design
+			comment.save()
+
+	comments = Comment.objects.all().filter(design=design)
+	form = CommentForm()
+	
+	ctxt = {'design': design, 'comments': comments, 'form': form}
+
+	return render(request, 'design/view.html', ctxt)

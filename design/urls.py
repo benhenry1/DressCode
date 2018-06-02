@@ -20,6 +20,7 @@ from design import views
 urlpatterns = [
 	path('', views.home),
 	path('home/', views.home),
+    path('view/<int:id>', views.view_design),
     path('upload/', views.upload)
 ]
 
