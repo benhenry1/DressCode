@@ -23,12 +23,12 @@ All subdirectories are available on port 8000
 #### Top Level Directory (root, src):
 This holds the SQLite database (holds users, all site data). You'll also see 'manage.py' which is how you manage the project (see how to run the server above). Lastly and most importantly, you'll see the "accounts" app.
 
-#### Accounts
+#### Accounts, Design (and any django app)
 You see quite a few files in here, I'll keep it limited to what's front-end relevant.
 
 Starting as far toward the back-end as necessary, you might want to take a peek at "views.py". This is where I define which HTML templates are associated with which views (like /index, /account/register, whatever).
 
-"Forms.py" is where I define some custom forms to use in the HTML templates. I don't fully understand it yet, but it makes creating complicated HTML forms super easy.
+"Forms.py" is where I define some custom forms to use in the HTML templates. I don't understand it yet, but it makes creating complicated HTML forms super easy.
 
 The most relevant section is the "Templates" subdirectory.
 
