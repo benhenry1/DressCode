@@ -28,6 +28,7 @@
 	{% for action in stream %}
 		<li>
 	    {% display_action action %}
+	    <a href="">Post a Comment</a>
 		</li>
 	{% endfor %}
 	</ul>
@@ -41,5 +42,5 @@
 		<img style="max-width: 300px" src="{{ post.image.url }}">
 		<p class="description"> Description: {{ post.description }} </p>
 	{%endfor%}
-	<a href="/upload">Upload A New Design</a>
+	<a href="/design/upload">Upload A New Design</a>
 {% endblock %}

@@ -6,15 +6,15 @@ from django.shortcuts import (
 from django.http import HttpResponse
 from account.forms import ( 
 	RegistrationForm, 
-	EditProfileForm, 
-	UploadForm
+	EditProfileForm
 	)
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django import forms
-from account.models import Profile, Design
+from account.models import Profile
+from design.models import Design
 from django.template import RequestContext
 from actstream import action
 from actstream.models import user_stream, actor_stream
@@ -34,11 +34,14 @@ def log_out(request):
 
 @login_required
 def home(request):
-	profile = Profile.objects.get(user=request.user)
-	posts = Design.objects.all().filter(user=request.user)
-	stream = user_stream(request.user, with_user_activity=True)
-
-	if not request.user.is_authenticated:
+	try:
+		profile = Profile.objects.get(user=request.user)
+		posts = Design.objects.all().filter(user=request.user)
+		stream = user_stream(request.user, with_user_activity=True)
+	except:
+		return HttpResponse("<h1>Error: Your account doesn't have a profile</h1>")
+		
+	if not request.user.is_authenticated or profile is None:
 		return redirect('/account/login')
 
 	ctxt = {'profile': profile,
@@ -80,27 +83,6 @@ def edit(request):
 				'form': form}
 
 		return render(request, 'account/edit.html', ctxt)
-
-
-@login_required
-def upload(request):
-	if request.method == "POST":
-		#handle post
-		form = UploadForm(request.POST, request.FILES)
-		print(request.FILES, request.POST)
-		if form.is_valid():
-			post = form.save(commit=False)
-			post.user = request.user
-			post.save()
-			return redirect('/account')
-		else:
-
-			return render(request, 'upload.html', {'form': form})
-	else:
-		form = UploadForm()
-
-		ctxt = {'form': form}
-		return render(request, 'upload.html', ctxt)
 
 
 def view_profile(request, username):

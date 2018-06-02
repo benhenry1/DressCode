@@ -15,18 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf.urls.static import static
-from django.conf import settings
-from design import views as designviews
-from account import views as acctviews
-
-
+from design import views
 
 urlpatterns = [
-	path('', acctviews.index),
-	path('account/', include('account.urls')),
-    path('design/', include('design.urls')),
-    path('upload/', designviews.upload),
-	path('admin/', admin.site.urls),
-    path('activity/', include('actstream.urls')),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+	path('', views.home),
+	path('home/', views.home),
+    path('upload/', views.upload)
+]
+
