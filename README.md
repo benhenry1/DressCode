@@ -6,7 +6,7 @@
 - Install Python3 (https://www.python.org/downloads/)
 - Install Django (https://www.djangoproject.com/download/)
   - Developed on Django 2.0.5
-- Install ActivityStream
+- Install ActivityStream (http://django-activity-stream.readthedocs.io/en/latest/installation.html)
 > pip install django-activity-stream
 
 #### Run Development Server (Linux, probs similar for windows)
