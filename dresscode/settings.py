@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',
+    'notifications',
     'account',
     'design',
     'actstream',
@@ -70,9 +71,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+
             'libraries':{
             'template_tags': 'actstream.templatetags.activity_tags',
-
             }
         },
     },

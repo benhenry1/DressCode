@@ -8,6 +8,8 @@
   - Developed on Django 2.0.5
 - Install ActivityStream (http://django-activity-stream.readthedocs.io/en/latest/installation.html)
 > pip install django-activity-stream
+- Install Django-Notifications (https://github.com/django-notifications/django-notifications)
+> pip install django-notifications-hq
 
 #### Run Development Server (Linux, probs similar for windows)
 1. Clone the repo

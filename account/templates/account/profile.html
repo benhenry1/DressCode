@@ -8,6 +8,7 @@
 {%endif%}
 
 {% load activity_tags %}
+<!--TODO: Don't redirect to this page, just use AJAX to send a GET request-->
 <a href="{% follow_url profile.user %}">
 	{% if request.user|is_following:profile.user %}
 	Unfollow

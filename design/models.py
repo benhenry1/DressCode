@@ -22,7 +22,6 @@ def design_handler(sender, **kwargs):
 	if kwargs['created']:
 		action.send(kwargs['instance'].user, verb="uploaded a design", target=kwargs['instance'])
 
-#Move to new app
 post_save.connect(design_handler, sender=Design)
 
 
@@ -36,4 +35,11 @@ class Comment(models.Model):
 
 #TODO: Implement notifications
 def comment_notify_handler(sender, **kwargs):
+	if kwargs['created']:
+		user = kwargs['instance'].user
+		design = kwargs['instance'].design
+		print(str(user.username) + " commented on " + str(design))
 	pass
+
+
+post_save.connect(comment_notify_handler, sender=Comment)
