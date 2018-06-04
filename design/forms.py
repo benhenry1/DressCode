@@ -8,6 +8,7 @@ class UploadForm(forms.ModelForm):
 	class Meta:
 		model = Design
 		fields = (
+			'title',
 			'image',
 			'description',
 		)

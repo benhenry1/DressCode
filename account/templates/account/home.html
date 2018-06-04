@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load activity_tags %}
 
+
 {% block head %}
 <h1>Account Home</h1>
 <ul>
@@ -22,13 +23,24 @@
 	<p>City: {{ profile.city }}</p>
 	<p>Description: {{ profile.description }}</p>
 
+	{% if notifications %}
+	<h3>Notifications: </h3>
+	<ul>
+		{% for notification in notifications %}
+		<li>
+			{{notification}}
+		</li>
+		{% endfor %}
+	</ul>
+	{% endif %}
 
 	<h3>Your Feed</h3>
 	<ul>
 	{% for action in stream %}
 		<li>
 	    {% display_action action %}
-	    <a href="">Post a Comment</a>
+	    <!-- TODO: Show comment box, and POST to /designview/id-->
+	    <a href="/design/view/{{action.target.id}}">Post a Comment</a>
 		</li>
 	{% endfor %}
 	</ul>

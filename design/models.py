@@ -2,11 +2,12 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 from actstream import action
+from notifications.signals import notify
 
 # Create your models here.
 class Design(models.Model):
 	user = models.ForeignKey(User, on_delete=models.PROTECT)
-	title = models.TextField(max_length=250, default='')
+	title = models.CharField(max_length=250, default='')
 	image = models.ImageField(upload_to='designs/')
 	description = models.TextField(max_length=500, default='')
 	uploaded_at = models.DateTimeField(auto_now_add=True)
@@ -33,12 +34,12 @@ class Comment(models.Model):
 	def __str__(self):
 		return str(self.user.username) + " " + str(self.design.title)
 
-#TODO: Implement notifications
+
 def comment_notify_handler(sender, **kwargs):
 	if kwargs['created']:
 		user = kwargs['instance'].user
 		design = kwargs['instance'].design
-		print(str(user.username) + " commented on " + str(design))
+		notify.send(user, recipient=design.user, verb="commented on your design", target=design)
 	pass
 
 

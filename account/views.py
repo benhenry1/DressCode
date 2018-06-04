@@ -6,7 +6,8 @@ from django.shortcuts import (
 from django.http import HttpResponse
 from account.forms import ( 
 	RegistrationForm, 
-	EditProfileForm
+	EditProfileForm,
+	EditPersonalInfoForm,
 	)
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
@@ -18,6 +19,7 @@ from design.models import Design
 from django.template import RequestContext
 from actstream import action
 from actstream.models import user_stream, actor_stream
+from notifications.models import Notification
 
 # Create your views here.
 def index(request):
@@ -44,9 +46,12 @@ def home(request):
 	if not request.user.is_authenticated or profile is None:
 		return redirect('/account/login')
 
+	notifications = Notification.objects.unread()
+
 	ctxt = {'profile': profile,
 			'posts': posts,
-			'stream': stream}
+			'stream': stream,
+			'notifications': notifications}
 
 	return render(request, 'account/home.html', ctxt)
 
@@ -71,16 +76,19 @@ def edit(request):
 
 	if request.method == "POST":
 		form = EditProfileForm(request.POST, request.FILES, instance=profile)
-		if form.is_valid():
+		infoform = EditPersonalInfoForm(request.POST, instance=profile.user)
+		if form.is_valid() and infoform.is_valid():
 			form.save()
+			infoform.save()
 			return redirect('/account')
 		else:
 			return render_to_response('account/edit.html', {'form': form})
 	else:
 		form = EditProfileForm(instance=profile)
-
+		infoform = EditPersonalInfoForm(instance=profile.user)
 		ctxt = {'user': request.user,
-				'form': form}
+				'form': form,
+				'infoform': infoform}
 
 		return render(request, 'account/edit.html', ctxt)
 

@@ -73,7 +73,7 @@ TEMPLATES = [
             ],
 
             'libraries':{
-            'template_tags': 'actstream.templatetags.activity_tags',
+            'template_tags': 'actstream.templatetags.activity_tags'
             }
         },
     },
