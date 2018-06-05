@@ -41,5 +41,7 @@
 		<p>Posted: {{ post.uploaded_at }}
 		<img style="max-width: 300px" src="{{ post.image.url }}">
 		<p class="description"> Description: {{ post.description }} </p>
+		<!-- TODO: Show comment box, and POST to /designview/id-->
+	    <a href="/design/view/{{post.id}}">Post a Comment</a>
 	{%endfor%}
 {% endblock %}

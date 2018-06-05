@@ -46,7 +46,7 @@ def home(request):
 	if not request.user.is_authenticated or profile is None:
 		return redirect('/account/login')
 
-	notifications = Notification.objects.unread()
+	notifications = request.user.notifications.unread()
 
 	ctxt = {'profile': profile,
 			'posts': posts,
