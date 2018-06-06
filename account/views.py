@@ -28,6 +28,10 @@ def index(request):
 def login(request):
 	if request.user.is_authenticated:
 		return redirect('/account/home')
+
+	if request.method == "POST":
+		print(request.POST)
+
 	return render(request, 'account/login.html')
 
 def log_out(request):

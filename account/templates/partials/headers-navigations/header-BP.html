@@ -1,4 +1,5 @@
 {% load static %}
+{% load notifications_tags %}
 
 <!-- Header-BP -->
 
@@ -117,27 +118,26 @@
 			<div class="control-icon more has-items">
 				<svg class="olymp-thunder-icon"><use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-thunder-icon"></use></svg>
 
-				<div class="label-avatar bg-primary">0</div>
+				<div class="label-avatar bg-primary">{% live_notify_badge badge_class="badge" %}</div>
 
 				<div class="more-dropdown more-with-triangle triangle-top-center">
 					<div class="ui-block-title ui-block-title-small">
 						<h6 class="title">Notifications</h6>
-						<a href="#">Mark all as read</a>
+						<a id="clear-notifications" href="#">Mark all as read</a>
 						<a href="#">Settings</a>
 					</div>
 					<!-- TODO: Refine notification types -->
 					<div class="mCustomScrollbar" data-mcs-theme="dark">
-						{% if notifications %}
-						<ul class="notification-list">
-							{% for notification in notifications|slice:":10" %}
-								{% include 'partials/notification/comment-notification.html' %}
-							{% endfor %}	
-						</ul>
-						{% endif %}
+						
+						{% live_notify_list %}
 					</div>
 
 					<a href="#" class="view-all bg-primary">View All Notifications</a>
 				</div>
+			</div>
+
+			<div class="test">
+
 			</div>
 
 			<div class="author-page author vcard inline-items more">
