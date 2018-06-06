@@ -1,47 +1,180 @@
 {% extends 'base.html' %}
-
-
-{% block head %}
-<h1>{{ profile.user.username }}'s Profile</h1>
-{% if profile.image %}
-<image src="{{ profile.image.url }}" style="max-width:240px">
-{%endif%}
-
-{% load activity_tags %}
-<!--TODO: Don't redirect to this page, just use AJAX to send a GET request-->
-<a href="{% follow_url profile.user %}">
-	{% if request.user|is_following:profile.user %}
-	Unfollow
-	{% else %}
-	Follow
-	{% endif %}
-	</a>
-{% endblock %}
-
 {% block body %}
-	<h3> Info: </h3>
-	<p>Username: {{ profile.user.username }}</p>
-	<p>Full Name: {{ profile.user.fist_name }} {{ profile.user.last_name }}</p>
-	<p>Email: {{ profile.user.email }}</p>
 
-	<p>City: {{ profile.city }}</p>
-	<p>Description: {{ profile.description }}</p>
+{% include 'partials/headers-navigations/left-panel.html' %}
 
-	<h3> Their Activity </h3>
-	<ul>
-	{% for action in stream %}
-		<li>
-	    {% display_action action %}
-		</li>
-	{% endfor %}
-	</ul>
+{% include 'partials/headers-navigations/left-panel-responsive.html' %}
 
-	<h3> {{ profile.user.first_name }}'s Designs </h3>
-	{% for post in posts %}
-		<p>Posted: {{ post.uploaded_at }}
-		<img style="max-width: 300px" src="{{ post.image.url }}">
-		<p class="description"> Description: {{ post.description }} </p>
-		<!-- TODO: Show comment box, and POST to /designview/id-->
-	    <a href="/design/view/{{post.id}}">Post a Comment</a>
-	{%endfor%}
+{% include 'partials/headers-navigations/right-panel.html' %}
+
+{% include 'partials/headers-navigations/right-panel-responsive.html' %}
+
+<div class="header-spacer"></div>
+
+
+
+
+{% include 'partials/headers-navigations/top-header-profile.html' %}
+
+<div class="container">
+	<div class="row">
+
+		<!-- Main Content -->
+
+		<div class="col col-xl-6 order-xl-2 col-lg-12 order-lg-1 col-md-12 col-sm-12 col-12">
+			<div id="newsfeed-items-grid">
+
+				<div class="ui-block">
+					{% include 'partials/posts/posts1-BP.html' %}
+				</div>
+				<div class="ui-block">
+					{% include 'partials/posts/posts2-BP.html' %}
+				</div>
+				<div class="ui-block">
+					{% include 'partials/posts/posts3-BP.html' %}
+					{% include 'partials/comments/comment-list1.html' %}
+					<a href="#" class="more-comments">View more comments <span>+</span></a>
+					{% include 'partials/forms/comment-form.html' %}
+				</div>
+				<div class="ui-block">
+					{% include 'partials/posts/posts4-BP.html' %}
+				</div>
+			</div>
+
+			<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
+				<svg class="olymp-three-dots-icon">
+					<use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+				</svg>
+			</a>
+		</div>
+
+		<!-- ... end Main Content -->
+
+
+		<!-- Left Sidebar -->
+
+		<div class="col col-xl-3 order-xl-1 col-lg-6 order-lg-2 col-md-6 col-sm-12 col-12">
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Profile Info</h6>
+				</div>
+				<div class="ui-block-content">
+
+					{% include 'partials/widgets/w-personal-info.html' %}
+
+					{% include 'partials/widgets/w-socials.html' %}
+
+				</div>
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">{{profile.user.username}}’s Badges</h6>
+				</div>
+				<div class="ui-block-content">
+
+					{% include 'partials/widgets/w-badges.html' %}
+
+				</div>
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">My Spotify Playlist</h6>
+				</div>
+
+				{% include 'partials/widgets/w-playlist.html' %}
+
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Twitter Feed</h6>
+				</div>
+
+				{% include 'partials/widgets/w-twitter.html' %}
+
+			</div>
+
+
+		</div>
+
+		<!-- ... end Left Sidebar -->
+
+
+		<!-- Right Sidebar -->
+
+		<div class="col col-xl-3 order-xl-3 col-lg-6 order-lg-3 col-md-6 col-sm-12 col-12">
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Last Photos</h6>
+				</div>
+				<div class="ui-block-content">
+
+					{% include 'partials/widgets/w-last-photo.html' %}
+
+				</div>
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Blog Posts</h6>
+				</div>
+				<!-- {% include 'partials/widgets/w-blog-posts.html' %} -->
+
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Friends (86)</h6>
+				</div>
+				<div class="ui-block-content">
+
+					<!-- {% include 'partials/widgets/w-faved-pages.html' %} -->
+
+				</div>
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">Favourite Pages</h6>
+				</div>
+
+				<!-- {% include 'partials/widgets/w-friend-pages-added.html' %} -->
+
+			</div>
+
+			<div class="ui-block">
+				<div class="ui-block-title">
+					<h6 class="title">James's Poll</h6>
+				</div>
+				<div class="ui-block-content">
+
+					<!-- {% include 'partials/widgets/w-pool.html' %} -->
+
+					<a href="#" class="btn btn-md-2 btn-border-think custom-color c-grey full-width">Vote Now!</a>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- ... end Right Sidebar -->
+
+	</div>
+</div>
+
+<!-- {% include 'partials/windows-popup/update-header-photo.html' %}
+
+{% include 'partials/windows-popup/choose-from-my-photo.html' %}
+
+{% include 'partials/windows-popup/playlist-popup.html' %}
+
+{% include 'partials/back-to-top.html' %}
+
+{% include 'partials/windows-popup/window-chat-responsive.html' %} -->
+
+
+<!-- END OF BODY BLOCK -->
 {% endblock %}

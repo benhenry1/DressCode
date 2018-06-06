@@ -39,7 +39,8 @@ def comment_notify_handler(sender, **kwargs):
 	if kwargs['created']:
 		user = kwargs['instance'].user
 		design = kwargs['instance'].design
-		notify.send(user, recipient=design.user, verb="commented on your design", target=design)
+		if user is not design.user:
+			notify.send(user, recipient=design.user, verb="commented on your design", target=design)
 	pass
 
 

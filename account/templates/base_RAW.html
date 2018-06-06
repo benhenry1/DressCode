@@ -1,0 +1,25 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+<head>
+	<div style="float: right">
+		<a href="/account/logout"> Log Out </a>
+	</div>
+
+	{% block head %}
+	<h1> Head </h1>
+	{% endblock %}
+</head>
+
+<body>
+	{% block body %}	
+	<h1> Body </h1>
+	{% endblock %}
+
+	{% block script %}
+	{% endblock %}
+
+
+</body>
+</html>
