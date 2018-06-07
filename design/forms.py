@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django import forms
-from design.models import Design, Comment
+from design.models import Design, DesignComment, Status
 
 
 class UploadForm(forms.ModelForm):
@@ -19,7 +19,7 @@ class UploadForm(forms.ModelForm):
 class CommentForm(forms.ModelForm):
 
 	class Meta:
-		model = Comment
+		model = DesignComment
 		fields = (
 			'comment',
 		)

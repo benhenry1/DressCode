@@ -7,6 +7,7 @@ from actstream import action
 class Profile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile_user")
 	image = models.ImageField(upload_to='profile_pictures/', blank=True)
+	banner = models.ImageField(upload_to='profile_banner/', blank=True)
 	description = models.TextField(max_length=250, default='')
 	city = models.CharField(max_length=50, default='')
 

@@ -6,7 +6,8 @@ from django.shortcuts import (
 from django.http import HttpResponse
 from design.forms import UploadForm, CommentForm
 from django.contrib.auth.models import User
-from design.models import Design, Comment
+from account.models import Profile
+from design.models import Design, DesignComment
 from django.contrib.auth.decorators import login_required
 # Create your views here.
 
@@ -20,7 +21,7 @@ def upload(request):
 		form = UploadForm(request.POST, request.FILES)
 		if form.is_valid():
 			post = form.save(commit=False)
-			post.user = request.user
+			post.profile = Profile.objects.get(user=request.user)
 			post.save()
 			return redirect('/account')
 		else:
@@ -39,11 +40,11 @@ def view_design(request, id):
 		form = CommentForm(request.POST)
 		if form.is_valid():
 			comment = form.save(commit=False)
-			comment.user = request.user
+			comment.profile = Profile.objects.get(user=request.user)
 			comment.design = design
 			comment.save()
 
-	comments = Comment.objects.all().filter(design=design)
+	comments = DesignComment.objects.all().filter(design=design)
 	form = CommentForm()
 	
 	ctxt = {'design': design, 'comments': comments, 'form': form}

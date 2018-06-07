@@ -42,7 +42,7 @@ def log_out(request):
 def home(request):
 	try:
 		profile = Profile.objects.get(user=request.user)
-		posts = Design.objects.all().filter(user=request.user)
+		posts = Design.objects.all().filter(profile=profile)
 		stream = user_stream(request.user, with_user_activity=True)
 	except:
 		return HttpResponse("<h1>Error: Your account doesn't have a profile</h1>")
@@ -100,10 +100,12 @@ def edit(request):
 def view_profile(request, username):
 	tgt_user = get_object_or_404(User, username=username)
 	target = Profile.objects.get(user=tgt_user)
-	target_posts = Design.objects.all().filter(user=tgt_user)
+	target_posts = Design.objects.all().filter(profile=target)
 
 	stream = actor_stream(tgt_user)
-
+	print(stream)
+	for i in range(5):
+		print()
 	ctxt = { 
 		'profile': target, 
 		'posts': target_posts,
