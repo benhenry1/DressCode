@@ -19,7 +19,7 @@
 							<div class="col col-lg-5 col-md-5 col-sm-12 col-12">
 								<ul class="profile-menu">
 									<li>
-										<a href="02-ProfilePage.html" class="active">Timeline</a>
+										<a href="/account/{{profile.user.username}}" class="active">Timeline</a>
 									</li>
 									<li>
 										<a href="05-ProfilePage-About.html">About</a>
@@ -55,8 +55,9 @@
 						</div>
 
 						<div class="control-block-button">
-							<a href="35-YourAccount-FriendsRequests.html" class="btn btn-control bg-blue">
-								<svg class="olymp-happy-face-icon"><use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-happy-face-icon"></use></svg>
+							<a id="follow" class="btn btn-control bg-blue">
+								<svg class="follow-icon d-none"><use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-plus-icon"></use></svg>
+								<svg class="unfollow-icon d-none"><use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-close-icon"></use></svg>
 							</a>
 
 							<a href="#" class="btn btn-control bg-purple">

@@ -15,6 +15,13 @@ class UploadForm(forms.ModelForm):
 
 	pass
 
+class StatusForm(forms.ModelForm):
+	class Meta:
+		model = Status
+		fields = (
+			'text',
+			)
+
 #Unnecessary? Could I just use an <input> and dynamically create the obj? .. yeah probably.
 class CommentForm(forms.ModelForm):
 
@@ -23,3 +30,4 @@ class CommentForm(forms.ModelForm):
 		fields = (
 			'comment',
 		)
+

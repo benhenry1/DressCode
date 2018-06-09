@@ -94,28 +94,6 @@
 
 	{% endblock %}
 
-	{% block script %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	{% endblock %}
-
-
-
 	<!-- JS Scripts -->
 <script src="{% static 'js/jquery-3.2.1.js' %}"></script>
 <script src="{% static 'js/jquery.appear.js' %}"></script>
@@ -150,7 +128,7 @@
 <script src="{% static 'js/jquery.gifplayer.js' %}"></script>
 <script src="{% static 'js/mediaelement-and-player.js' %}"></script>
 <script src="{% static 'js/mediaelement-playlist-plugin.min.js' %}"></script>
-<script src="{% static 'js/sticky-sidebar.js '}"></script>
+<script src="{% static 'js/sticky-sidebar.js'}"></script>
 
 <script src="{% static 'js/base-init.js' %}"></script>
 <script defer src="{% static 'fonts/fontawesome-all.js' %}"></script>
@@ -164,11 +142,33 @@
 <!-- Clear all notifications. Max 5 because 5 fit in the note box -->
 <script>
 	$('#clear-notifications').click(function() {
-		console.log("hit")
 		$.get("/inbox/notifications/api/unread_list?max=5&mark_as_read=true")
-		alert("cleared")
+		fill_notification_list()
+		fill_notification_badge()
 	})
 </script>
+
+
+	{% block script %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	{% endblock %}
+
 
 </body>
 </html>

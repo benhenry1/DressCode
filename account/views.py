@@ -9,6 +9,7 @@ from account.forms import (
 	EditProfileForm,
 	EditPersonalInfoForm,
 	)
+from design.forms import UploadForm, StatusForm
 from django.contrib.auth import logout, update_session_auth_hash
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
@@ -50,12 +51,31 @@ def home(request):
 	if not request.user.is_authenticated or profile is None:
 		return redirect('/account/login')
 
+	if request.method == 'POST':
+		designform = UploadForm(request.POST, request.FILES)
+		statusform = StatusForm(request.POST)
+
+		if designform.is_valid():
+			post = designform.save(commit=False)
+			post.profile = profile
+			post.save()
+		elif statusform.is_valid():
+			status = statusform.save(commit=False)
+			status.profile = profile
+			status.save()
+		pass
+
 	notifications = request.user.notifications.unread()
+
+	designform = UploadForm()
+	statusform = StatusForm()
 
 	ctxt = {'profile': profile,
 			'posts': posts,
 			'stream': stream,
-			'notifications': notifications}
+			'notifications': notifications,
+			'designform': designform,
+			'statusform': statusform }
 
 	return render(request, 'account/home.html', ctxt)
 
@@ -103,9 +123,7 @@ def view_profile(request, username):
 	target_posts = Design.objects.all().filter(profile=target)
 
 	stream = actor_stream(tgt_user)
-	print(stream)
-	for i in range(5):
-		print()
+
 	ctxt = { 
 		'profile': target, 
 		'posts': target_posts,

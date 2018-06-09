@@ -36,7 +36,7 @@ post_save.connect(design_handler, sender=Design)
 def status_handler(sender, **kwargs):
 	if kwargs['created']:
 		status = kwargs['instance']
-		action.send(status.profile, verb="posted a status", target=status)
+		action.send(status.profile.user, verb="posted a status", target=status)
 
 post_save.connect(status_handler, sender=Status)
 

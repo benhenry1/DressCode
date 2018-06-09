@@ -11,7 +11,6 @@
 
 {% include 'partials/headers-navigations/right-panel-responsive.html' %} -->
 
-<div class="header-spacer"></div>
 
 
 
@@ -182,4 +181,29 @@
 
 
 <!-- END OF BODY BLOCK -->
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function() {
+	{% if request.user|is_following:profile.user %}
+	$(".unfollow-icon").removeClass('d-none');
+	{% else %}
+	$(".follow-icon").removeClass('d-none');
+	{% endif %}
+})
+
+ $("#follow").click(function() {
+ 	$.get("{% follow_url profile.user %}")
+
+ 	if ($(".follow-icon").hasClass('d-none')) {
+ 		$(".follow-icon").removeClass('d-none')
+ 		$(".unfollow-icon").addClass('d-none')
+ 	} else {
+ 		$(".unfollow-icon").removeClass('d-none')
+ 		$(".follow-icon").addClass('d-none')
+ 	}
+ })
+</script>
+
 {% endblock %}
