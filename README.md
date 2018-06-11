@@ -10,6 +10,8 @@
 > pip install django-activity-stream
 - Install Django-Notifications (https://github.com/django-notifications/django-notifications)
 > pip install django-notifications-hq
+- Instal Django Rest Framework (http://www.django-rest-framework.org/)
+> pip install djangorestframework
 
 #### Run Development Server (Linux, probs similar for windows)
 1. Clone the repo

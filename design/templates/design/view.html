@@ -12,6 +12,8 @@
 	<img src="{{ design.image.url }}" style="max-width: 300px">
 	<p>Description: {{ design.description }}</p>
 
+	<h1>THERE ARE {{design.num_likes}} LIKES!</h1>
+	<button id="like">Like </button>
 	<ul class="comments">
 	{% for comment in comments %}
 		<p>{{comment.user.username}} says:</p>
@@ -23,4 +25,10 @@
 		{{form.as_p}}
 		<button type="submit">Submit</button>
 	</form>
+{% endblock %}
+
+{% block script %}
+<script>
+//TODO: Jquery POST to my api endpoint for a like
+</script>
 {% endblock %}

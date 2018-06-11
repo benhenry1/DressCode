@@ -21,6 +21,7 @@ urlpatterns = [
 	path('', views.home),
 	path('home/', views.home),
     path('view/<int:id>', views.view_design),
-    path('upload/', views.upload)
+    path('upload/', views.upload),
+    path('api/', include('design.api.urls')),
 ]
 
