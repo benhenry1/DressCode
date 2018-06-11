@@ -6,17 +6,17 @@
 
 
 {% block body %}
-	<h3>Design By {{ design.user.username }}</h3>
+	<h3>Design By {{ design.profile.user.username }}</h3>
 	<h4>Title: {{ design.title }}</h4>
 	<p>Uploaded: {{ design.uploaded_at }}
 	<img src="{{ design.image.url }}" style="max-width: 300px">
 	<p>Description: {{ design.description }}</p>
 
 	<h1>THERE ARE {{design.num_likes}} LIKES!</h1>
-	<button id="like">Like </button>
+	<a class="btn btn-primary" id="like">Like </a>
 	<ul class="comments">
 	{% for comment in comments %}
-		<p>{{comment.user.username}} says:</p>
+		<p>{{comment.profile.user.username}} says:</p>
 		<p>{{comment.comment}}</p>
 	{% endfor %}
 	</ul>
@@ -29,6 +29,52 @@
 
 {% block script %}
 <script>
-//TODO: Jquery POST to my api endpoint for a like
+$.ajaxSetup({ 
+     beforeSend: function(xhr, settings) {
+         function getCookie(name) {
+             var cookieValue = null;
+             if (document.cookie && document.cookie != '') {
+                 var cookies = document.cookie.split(';');
+                 for (var i = 0; i < cookies.length; i++) {
+                     var cookie = jQuery.trim(cookies[i]);
+                     // Does this cookie string begin with the name we want?
+                     if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                         cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                         break;
+                     }
+                 }
+             }
+             return cookieValue;
+         }
+         if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+             // Only send the token to relative URLs i.e. locally.
+             xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+         }
+     } 
+});
+
+$('#like').click(function(){
+	var data = {
+		"profile": {{user.profile_user.pk}},
+		"design" : {{design.pk}}
+	}
+	console.log(data);
+	$.post('/design/api/likedesign', data)
+ 		.fail(function(xhr, status, error) {
+    		alert("Debug: " + xhr.responseText);
+  		})
+  		.done(function() {
+  			var elt = $("#like");
+  			if (elt.hasClass('btn-primary')) {
+  				elt.addClass('btn-secondary');
+  				elt.removeClass('btn-primary');
+  				elt.text("Unlike");
+  			} else {
+  				elt.addClass('btn-primary');
+  				elt.removeClass('btn-secondary');
+  				elt.text("Like");
+  			}
+  		});
+})
 </script>
 {% endblock %}

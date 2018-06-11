@@ -21,14 +21,17 @@ class Design(models.Model):
 	def __str__(self):
 		return str(self.profile.user) + " " + str(self.timestamp)
 
+	def num_comments(self):
+		return DesignComment.objects.all().filter(design=self).count()
+
 	def get_comments(self):
-		return DesignComments.objects.get(design=self)
+		return DesignComment.objects.all().filter(design=self)
 
 	def num_likes(self):
-		return DesignLike.objects.all().count();
+		return DesignLike.objects.all().filter(design=self).count();
 
 	def get_likes(self):
-		return DesignLike.objects.all().count();
+		return DesignLike.objects.all().filter(design=self)
 
 
 class Status(models.Model):
@@ -39,15 +42,17 @@ class Status(models.Model):
 	def __str__(self):
 		return str(self.profile.user) + " " + str(self.timestamp)
 
+	def num_comments(self):
+		return StatusComment.objects.all().filter(status=self).count();
 
 	def get_comments(self):
-		return StatusComments.objects.get(design=self)
+		return StatusComments.objects.all().filter(status=self)
 
 	def num_likes(self):
-		return StatusLike.objects.all().count();
+		return StatusLike.objects.all().filter(status=self).count();
 
 	def get_likes(self):
-		return StatusLike.objects.all().count();
+		return StatusLike.objects.all().filter(status=self)
 
 
 def design_handler(sender, **kwargs):
@@ -146,7 +151,7 @@ def designlike_handler(sender, **kwargs):
 	if kwargs['created']:
 		profile = kwargs['instance'].profile
 		design = kwargs['instance'].design
-		if profile is not design.profile:
+		if profile.user is not design.profile.user:
 			notify.send(profile, recipient=design.profile.user, verb="liked your design", target=design)
 	pass
 
@@ -154,7 +159,7 @@ def statuslike_handler(sender, **kwargs):
 	if kwargs['created']:
 		profile = kwargs['instance'].profile
 		status = kwargs['instance'].status
-		if profile is not status.profile:
+		if profile.user is not status.profile.user:
 			notify.send(profile, recipient=status.profile.user, verb="liked your status", target=status)
 	pass
 

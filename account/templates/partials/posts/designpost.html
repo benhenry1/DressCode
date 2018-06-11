@@ -1,6 +1,6 @@
 <!-- Post -->
 
-<article class="hentry post">
+<article class="hentry post" design-id="{{action.target.pk}}">
 
 		<div class="post__author author vcard inline-items">
 			<img src="{{action.target.profile.image.url}}" alt="author">
@@ -41,11 +41,11 @@
 
 		<div class="post-additional-info inline-items">
 
-			<a href="#" class="post-add-icon inline-items">
+			<a id="like" href="#" class="post-add-icon inline-items">
 				<svg class="olymp-heart-icon">
 					<use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-heart-icon"></use>
 				</svg>
-				<span>8</span>
+				<span id="likecount">{{action.target.num_likes}}</span>
 			</a>
 
 			<ul class="friends-harmonic">
@@ -87,7 +87,7 @@
 					<svg class="olymp-speech-balloon-icon">
 						<use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-speech-balloon-icon"></use>
 					</svg>
-					<span>17</span>
+					<span>{{action.target.num_comments}}</span>
 				</a>
 
 				<a href="#" class="post-add-icon inline-items">

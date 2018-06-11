@@ -145,3 +145,26 @@
 
 <!-- END BODY BLOCK -->
 {% endblock %}
+
+
+{% block script %}
+<script>
+
+$('#like').click(function(){
+	var desid = parseInt($(this).closest("article").attr('design-id'));
+	var data = {
+		"profile": {{user.profile_user.pk}},
+		"design" : desid
+	}
+	console.log(data);
+	$.post('/design/api/likedesign', data)
+ 		.fail(function(xhr, status, error) {
+    		alert("Debug: " + xhr.responseText);
+  		})
+  		.done(function() {
+  			// TODO: How to determine on render if liked or not? Can determine toggle from there.
+  			alert("Success");
+  		});
+})
+</script>
+{% endblock %}
