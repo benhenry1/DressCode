@@ -9,7 +9,7 @@
 				<a class="h6 post__author-name fn" href="/account/{{action.target.profile.image.url}}">{{action.actor.username}}</a>
 				<div class="post__date">
 					<time class="published" datetime="2017-03-24T18:18">
-						{{ action.target.uploaded_at|timesince }}
+						{{ action.target.timestamp|timesince }}
 					</time>
 				</div>
 			</div>

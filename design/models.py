@@ -98,7 +98,7 @@ def designcomment_notify_handler(sender, **kwargs):
 	if kwargs['created']:
 		profile = kwargs['instance'].profile
 		design = kwargs['instance'].design
-		if sender.profile is not design.profile:
+		if profile.user is not design.profile.user:
 			notify.send(profile, recipient=design.profile.user, verb="commented on your design", target=design)
 	pass
 

@@ -1,0 +1,77 @@
+
+<!-- Comments -->
+
+<ul class="comments-list">
+	{% for comment in action.target.get_comments %}
+	<li class="comment-item has-children">
+		<div class="post__author author vcard inline-items">
+			<img src="{{comment.profile.image.url}}" alt="{{comment.profile.user.username}}">
+
+			<div class="author-date">
+				<a class="h6 post__author-name fn" href="/account/{{comment.profile.user.username}}">{{comment.profile.user.username}}</a>
+				<div class="post__date">
+					<time class="published" datetime="{{comment.timestamp}}">
+						{{ comment.timestamp|timesince }}
+					</time>
+				</div>
+			</div>
+
+			<a href="#" class="more">
+				<svg class="olymp-three-dots-icon">
+					<use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+				</svg>
+			</a>
+
+		</div>
+
+		<p>{{comment.comment}}</p>
+
+		<a href="#" class="post-add-icon inline-items">
+			<svg class="olymp-heart-icon">
+				<use xlink:href="svg-icons/sprites/icons.svg#olymp-heart-icon"></use>
+			</svg>
+			<span>5</span>
+		</a>
+		<!-- <a href="#" class="reply">Reply</a> -->
+	
+
+<!-- 		<ul class="children">
+			<li class="comment-item">
+				<div class="post__author author vcard inline-items">
+					<img src="img/avatar8-sm.jpg" alt="author">
+
+					<div class="author-date">
+						<a class="h6 post__author-name fn" href="#">Diana Jameson</a>
+						<div class="post__date">
+							<time class="published" datetime="2017-03-24T18:18">
+								39 mins ago
+							</time>
+						</div>
+					</div>
+
+					<a href="#" class="more">
+						<svg class="olymp-three-dots-icon">
+							<use xlink:href="svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
+						</svg>
+					</a>
+
+				</div>
+
+				<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+				<a href="#" class="post-add-icon inline-items">
+					<svg class="olymp-heart-icon">
+						<use xlink:href="svg-icons/sprites/icons.svg#olymp-heart-icon"></use>
+					</svg>
+					<span>2</span>
+				</a>
+				<a href="#" class="reply">Reply</a>
+			</li>
+			
+		</ul> -->
+
+	</li>
+	{% endfor %}
+</ul>
+
+<!-- ... end Comments -->

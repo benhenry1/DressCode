@@ -45,7 +45,11 @@
 						<p>This action contained an unknown verb. Probs a follow.</p>
 					{% endif %}
 					{% endif %}
-<!-- 					{% display_action action %} -->
+					<!-- Show comments -->
+					{% if action.target.num_comments %}
+							{% include 'partials/comments/comment-list.html' %}
+					{% endif %}
+					{% include 'partials/forms/comment-form.html' %}
 				</div>
 				{% endfor %}
 			</div>
@@ -166,5 +170,36 @@ $('#like').click(function(){
   			alert("Success");
   		});
 })
+
+$('#postcomment').click(function() {
+	var container = $(this).closest('div.ui-block');
+	var posttype = $(container).find('article').attr('design-id')
+	var content = $(container).find('form textarea').val();
+	var url = '';
+
+	if (typeof posttype !== typeof undefined && posttype !== false) {
+		//This is a design
+		url = '/design/api/designcomment';
+	} else {
+		//This is a status
+		posttype = $(container).find('article').attr('post-id');
+		url = '/design/api/statuscomment';
+	}
+
+	if (content == "") { return; }
+
+	var data = {
+		'profile': {{user.profile_user.pk}},
+		'comment': content,
+		'design': posttype,
+	};
+
+	$.post(url, data, function(){alert("DEBUG: Successfully posted");})
+	.fail(function(xhr, status, error) {
+    		alert("Debug: " + xhr.responseText);
+  		})
+
+})
+
 </script>
 {% endblock %}
