@@ -26,6 +26,9 @@ from account import views
 
 urlpatterns = [
 	path('', views.home),
+
+    path('api/', include('account.api.urls')),
+    
 	path('home/', views.home),
 	path('login/', login, {'template_name': 'account/login.html'}),
 	path('logout/', views.log_out),
