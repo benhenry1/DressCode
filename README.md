@@ -12,6 +12,8 @@
 > pip install django-notifications-hq
 - Instal Django Rest Framework (http://www.django-rest-framework.org/)
 > pip install djangorestframework
+- Pillow (required for serving media)
+> pip install Pillow
 
 #### Run Development Server (Linux, probs similar for windows)
 1. Clone the repo
