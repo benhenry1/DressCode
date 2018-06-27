@@ -7,7 +7,9 @@
 - Install Django (https://www.djangoproject.com/download/)
   - Developed on Django 2.0.5
 - Install ActivityStream (http://django-activity-stream.readthedocs.io/en/latest/installation.html)
-> pip install django-activity-stream
+  -Install this from the Git Repo to avoid errors
+> pip install git+https://github.com/justquick/django-activity-stream.git#egg=actstream
+
 - Install Django-Notifications (https://github.com/django-notifications/django-notifications)
 > pip install django-notifications-hq
 - Instal Django Rest Framework (http://www.django-rest-framework.org/)
