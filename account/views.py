@@ -24,11 +24,13 @@ from notifications.models import Notification
 
 # Create your views here.
 def index(request):
-	return HttpResponse("<h1>This is the index page</h1>")
+	if request.user.is_authenticated:
+		return redirect('/account')
+	return redirect('/account/login')
 
 def login(request):
 	if request.user.is_authenticated:
-		return redirect('/account/home')
+		return redirect('/account')
 
 	if request.method == "POST":
 		print(request.POST)

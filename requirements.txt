@@ -3,3 +3,5 @@
 django=2.0.5
 django-activity-stream
 django-notifications-hq
+djangorestframework
+Pillow

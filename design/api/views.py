@@ -4,8 +4,39 @@ from .serializers import (
 	DesignCommentSerializer,
 	StatusLikeSerializer,
 	StatusCommentSerializer,
+	DesignSerializer,
+	StatusSerializer,
+	DesignShareSerializer
 )
-from design.models import DesignComment, DesignLike, StatusComment, StatusLike
+from design.models import (
+	DesignComment,
+	DesignLike,
+	StatusComment,
+	StatusLike,
+	Design,
+	Status,
+	DesignShare
+)
+
+class DesignRetrieveAPIView(generics.RetrieveAPIView):
+	lookup_field = 'pk'
+	queryset = Design.objects.all()
+	serializer_class = DesignSerializer
+
+class DesignCreateAPIView(generics.CreateAPIView):
+	lookup_field = 'pk'
+	queryset = Design.objects.all()
+	serializer_class = DesignSerializer
+
+class StatusCreateAPIView(generics.CreateAPIView):
+	lookup_field = 'pk'
+	queryset = Status.objects.all()
+	serializer_class = StatusSerializer
+
+class DesignShareCreateAPIView(generics.CreateAPIView):
+	lookup_field = 'pk'#Still default
+	queryset = DesignShare.objects.all();
+	serializer_class = DesignShareSerializer
 
 class DesignLikeCreateAPIView(generics.CreateAPIView):
 	lookup_field = 'pk' #Default anyway

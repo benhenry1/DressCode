@@ -10,8 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 			'username',
 			'first_name',
 			'last_name',
-			'email',
-			'password'
+			'email'
 		]
 
 	def create(self, validated_data):
@@ -33,6 +32,7 @@ class UserSerializer(serializers.ModelSerializer):
 		return instance
 
 class ProfileSerializer(serializers.ModelSerializer):
+	user = UserSerializer(read_only=True)
 	class Meta:
 		model = Profile
 		fields = [

@@ -1,7 +1,56 @@
 from rest_framework import serializers
-from design.models import DesignLike, StatusLike, DesignComment, StatusComment
+from design.models import (
+	DesignLike,
+	StatusLike,
+	DesignComment,
+	StatusComment,
+	Design,
+	Status,
+	DesignShare
+)
+from account.api.serializers import (
+	ProfileSerializer,
+	UserSerializer
+)
+
+
+class StatusSerializer(serializers.ModelSerializer):
+	profile = ProfileSerializer(read_only=True)
+	class Meta:
+		model = Status
+		fields = [
+			'pk',
+			'profile',
+			'text',
+			'timestamp',
+		]
+
+class DesignSerializer(serializers.ModelSerializer):
+	profile = ProfileSerializer(read_only=True)
+	class Meta:
+		model = Design
+		fields = [
+			'pk',
+			'profile',
+			'title',
+			'image',
+			'description',
+			'timestamp',
+		]
+
+class DesignShareSerializer(serializers.ModelSerializer):
+	design = DesignSerializer(read_only=True)
+	class Meta:
+		model = DesignShare
+		fields = [
+			'pk',
+			'profile',
+			'design',
+			'timestamp',
+		]
 
 class DesignLikeSerializer(serializers.ModelSerializer):
+	design = DesignSerializer(read_only=True)
 	class Meta:
 		model = DesignLike
 		fields = [
@@ -12,6 +61,7 @@ class DesignLikeSerializer(serializers.ModelSerializer):
 		]
 
 class DesignCommentSerializer(serializers.ModelSerializer):
+	design = DesignSerializer(read_only=True)
 	class Meta:
 		model = DesignComment
 		fields = [

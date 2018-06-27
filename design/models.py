@@ -165,3 +165,20 @@ def statuslike_handler(sender, **kwargs):
 
 post_save.connect(designlike_handler, sender=DesignLike)
 post_save.connect(statuslike_handler, sender=StatusLike)
+
+class DesignShare(models.Model):
+	profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
+	design = models.ForeignKey(Design, on_delete = models.CASCADE)
+	timestamp = models.DateTimeField(auto_now_add=True)
+	#No need to use this timestamp, just display design.timestamp
+
+def designshare_handler(sender, **kwargs):
+	if kwargs['created']:
+		profile = kwargs['instance'].profile
+		design = kwargs['instance'].design
+		#Send the action to sharer's feed
+		action.send(profile.user, verb="shared a design", target=design)
+		#Notify the design's owner
+		notify.send(profile, recipient=design.profile.user, verb="shared your design", target=design)
+
+post_save.connect(designshare_handler, sender=DesignShare)

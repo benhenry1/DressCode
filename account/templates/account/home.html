@@ -4,12 +4,6 @@
 <!-- BODY BLOCK -->
 {% block body %}
 
-{% include 'partials/headers-navigations/left-panel.html' %}
-
-{% include 'partials/headers-navigations/left-panel-responsive.html' %}
-
-{% include 'partials/headers-navigations/right-panel.html' %}
-
 {% include 'partials/headers-navigations/right-panel-responsive.html' %}
 
 {% include 'partials/headers-navigations/header-BP.html' %}
@@ -42,7 +36,7 @@
 					{% if action.verb == "posted a status" %}
 						{% include 'partials/posts/statuspost.html' %}
 					{% else %}
-						<p>This action contained an unknown verb. Probs a follow.</p>
+						<p>This action contained an unknown verb. Either a follow or a share.</p>
 					{% endif %}
 					{% endif %}
 					<!-- Show comments -->
@@ -171,11 +165,13 @@ $('#like').click(function(){
   		});
 })
 
-$('#postcomment').click(function() {
+$('.post-comment').click(function() {
 	var container = $(this).closest('div.ui-block');
 	var posttype = $(container).find('article').attr('design-id')
 	var content = $(container).find('form textarea').val();
 	var url = '';
+
+	console.log("hit")
 
 	if (typeof posttype !== typeof undefined && posttype !== false) {
 		//This is a design

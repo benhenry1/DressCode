@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block body %}
+<body class="landing-page">
+
+<div class="content-bg-wrap"></div>
+
+<!-- <div class="header-spacer--standard"></div> -->
+
+<div class="container">
+	<div class="row display-flex">
+		<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+			<div class="landing-content">
+				<h1>Welcome to the FashionCode!</h1>
+				<p>We are a network of independent fashion enthusiasts and designers. Design your own clothes, vote on your favorite graphics, and shop from the most popular designs in our online store!
+				</p>
+				<a href="/account/register" class="btn btn-md btn-border c-white">Register Now!</a>
+			</div>
+		</div>
+
+		<div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12">
+			{% include  'partials/forms/registration-login-form.html' %}
+		</div>
+	</div>
+</div>
+<body>
+{% endblock %}
+
+{% block scripts %}
+<!-- TODO: I don't even have a login API yet???? -->
+<!-- <script>
+	$('#loginbutton').click(function () {
+		var $loginform = $('#loginbutton').closest('form');
+		var username = $('.login-username').val();
+		var password = $('.login-password').val();
+	})
+</script> -->
+{% endblock %}

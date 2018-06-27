@@ -20,6 +20,11 @@ class UserRetrieveUpdateAPIView(generics.RetrieveUpdateAPIView):
 	serializer_class = UserSerializer
 
 '''
+TODO: Login a user
+'''
+
+
+'''
 Retrieve and Update PROFILEs
 -- Won't need to create, we have an event handler for that in acct.models
 '''

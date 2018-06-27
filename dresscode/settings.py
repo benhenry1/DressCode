@@ -160,3 +160,5 @@ EMAIL_PORT = 1025
 
 
 AUTH_PROFILE_MODULE = 'account.Profile'
+
+PRINTFUL_API_KEY = 'oyxpbyy6-h7fc-27oy:ttkz-c8yt8yhrsvz2'

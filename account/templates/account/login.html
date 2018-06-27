@@ -1,16 +1,43 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<h1> Welcome! </h1>
-{% endblock %}
 
 {% block body %}
-	<h2> You can login here </h2>
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit"> Login </button>
-	</form>
-	<a href="/account/register">Or Register Here</a>
+<body class="landing-page">
+
+<div class="content-bg-wrap"></div>
+
+
+
+<!-- <div class="header-spacer--standard"></div> -->
+
+<div class="container">
+	<div class="row display-flex">
+		<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+			<div class="landing-content">
+				<h1>Welcome to the FashionCode!</h1>
+				<p>We are a network of independent fashion enthusiasts and designers. Design your own clothes, vote on your favorite graphics, and shop from the most popular designs in our online store!
+				</p>
+				<a href="/account/register" class="btn btn-md btn-border c-white">Register Now!</a>
+			</div>
+		</div>
+
+		<div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 login-form">
+			<h2>Login Here</h2>
+			<form method="post">
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-md btn-border c-black" type="submit"> Login </button>
+			</form>
+
+		</div>
+	</div>
+</div>
+<body>
+
+
+
+
+
+	
 
 {% endblock %}

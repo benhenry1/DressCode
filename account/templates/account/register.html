@@ -1,23 +1,42 @@
 {% extends 'base.html' %}
 
-{% block head %}
-<h1>Register a New user</h1>
-{% endblock %}
 
 {% block body %}
+<body class="landing-page">
+
+<div class="content-bg-wrap"></div>
+
+<!-- <div class="header-spacer--standard"></div> -->
+
 <div class="container">
-	<form method="post">
-		{% if form.subject.errors %}
-		    <ol>
-		    {% for error in form.subject.errors %}
-		        <li><strong>{{ error|escape }}</strong></li>
-		    {% endfor %}
-		    </ol>
-		{% endif %}
-		
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit"> Register </button>
-	</form>
+	<div class="row display-flex">
+		<div class="col col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+			<div class="landing-content">
+				<h1>Welcome to the FashionCode!</h1>
+				<p>We are a network of independent fashion enthusiasts and designers. Design your own clothes, vote on your favorite graphics, and shop from the most popular designs in our online store!
+				</p>
+				<a href="/account/register" class="btn btn-md btn-border c-white">Register Now!</a>
+			</div>
+		</div>
+
+		<div class="col col-xl-5 col-lg-6 col-md-12 col-sm-12 col-12 login-form">
+			<h2>Register a New User</h2>
+			<form method="post">
+				{% if form.subject.errors %}
+				    <ol>
+				    {% for error in form.subject.errors %}
+				        <li><strong>{{ error|escape }}</strong></li>
+				    {% endfor %}
+				    </ol>
+				{% endif %}
+				
+				{% csrf_token %}
+				{{ form.as_p }}
+				<button class="btn btn-md btn-border c-black" type="submit"> Register </button>
+			</form>
+		</div>
+	</div>
 </div>
+<body>
+
 {% endblock %}
