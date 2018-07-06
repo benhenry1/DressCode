@@ -15,7 +15,7 @@ from account.api.serializers import (
 
 
 class StatusSerializer(serializers.ModelSerializer):
-	profile = ProfileSerializer(read_only=True)
+	profile = ProfileSerializer()
 	class Meta:
 		model = Status
 		fields = [
@@ -26,7 +26,7 @@ class StatusSerializer(serializers.ModelSerializer):
 		]
 
 class DesignSerializer(serializers.ModelSerializer):
-	profile = ProfileSerializer(read_only=True)
+	profile = ProfileSerializer()
 	class Meta:
 		model = Design
 		fields = [
@@ -39,7 +39,7 @@ class DesignSerializer(serializers.ModelSerializer):
 		]
 
 class DesignShareSerializer(serializers.ModelSerializer):
-	design = DesignSerializer(read_only=True)
+	# design = DesignSerializer()
 	class Meta:
 		model = DesignShare
 		fields = [
@@ -50,7 +50,7 @@ class DesignShareSerializer(serializers.ModelSerializer):
 		]
 
 class DesignLikeSerializer(serializers.ModelSerializer):
-	design = DesignSerializer(read_only=True)
+	# design = DesignSerializer()
 	class Meta:
 		model = DesignLike
 		fields = [
@@ -61,7 +61,7 @@ class DesignLikeSerializer(serializers.ModelSerializer):
 		]
 
 class DesignCommentSerializer(serializers.ModelSerializer):
-	design = DesignSerializer(read_only=True)
+	# design = DesignSerializer()
 	class Meta:
 		model = DesignComment
 		fields = [

@@ -4,7 +4,21 @@
 
 		<div class="post__author author vcard inline-items">
 			<img src="{{action.target.profile.image.url}}" alt="author">
+			{% if action.verb == "shared a design" %}
+			<div class="author-date">
+				<a class="h6 post__author-name fn" href="/account/{{action.target.profile.image.url}}">{{action.target.profile.user.username}}</a>
+				<div class="post__date">
+					<time class="published" datetime="2017-03-24T18:18">
+						{{ action.target.timestamp|timesince }}
+					</time>
+				</div>
 
+			</div>
+
+			<div class="author-date">
+				<a class="h6 post__author-name fn" href="/account/{{action.target.profile.image.url}}">{{action.actor.username}}</a>
+			</div>
+			{% else %}
 			<div class="author-date">
 				<a class="h6 post__author-name fn" href="/account/{{action.target.profile.image.url}}">{{action.actor.username}}</a>
 				<div class="post__date">
@@ -12,8 +26,9 @@
 						{{ action.target.timestamp|timesince }}
 					</time>
 				</div>
-			</div>
 
+			</div>
+			{% endif %}
 			<div class="more">
 				<svg class="olymp-three-dots-icon">
 					<use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
@@ -48,7 +63,7 @@
 				<span id="likecount">{{action.target.num_likes}}</span>
 			</a>
 
-			<ul class="friends-harmonic">
+			<!-- <ul class="friends-harmonic">
 				<li>
 					<a href="#">
 						<img src="img/friend-harmonic7.jpg" alt="friend">
@@ -74,12 +89,12 @@
 						<img src="img/friend-harmonic11.jpg" alt="friend">
 					</a>
 				</li>
-			</ul>
+			</ul> -->
 
-			<div class="names-people-likes">
+<!-- 			<div class="names-people-likes">
 				<a href="#">Jenny</a>, <a href="#">Robert</a> and
 				<br>6 more liked this
-			</div>
+			</div> -->
 
 
 			<div class="comments-shared">
@@ -90,11 +105,11 @@
 					<span>{{action.target.num_comments}}</span>
 				</a>
 
-				<a href="#" class="post-add-icon inline-items">
+				<a href="#" class="post-add-icon inline-items share-design">
 					<svg class="olymp-share-icon">
 						<use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-share-icon"></use>
 					</svg>
-					<span>24</span>
+					<span>{{action.target.num_shares}}</span>
 				</a>
 			</div>
 
@@ -131,4 +146,4 @@
 
 	</article>
 
-<!-- .. end Post -->
+<!-- .. end Post

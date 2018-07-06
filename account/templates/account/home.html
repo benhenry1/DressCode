@@ -23,40 +23,8 @@
 				{% include 'partials/forms/news-feed-form.html' %}
 			</div>
 
-			<div id="newsfeed-items-grid">
-
-			{% if stream %}
-			<div id="newsfeed-items-grid">
-				{% for action in stream %}
-				<div class="ui-block">
-					<!-- action.actor .target .verb -->
-					{% if action.verb == "uploaded a design" %}
-						{% include 'partials/posts/designpost.html' %}
-					{% else %}
-					{% if action.verb == "posted a status" %}
-						{% include 'partials/posts/statuspost.html' %}
-					{% else %}
-						<p>This action contained an unknown verb. Either a follow or a share.</p>
-					{% endif %}
-					{% endif %}
-					<!-- Show comments -->
-					{% if action.target.num_comments %}
-							{% include 'partials/comments/comment-list.html' %}
-					{% endif %}
-					{% include 'partials/forms/comment-form.html' %}
-				</div>
-				{% endfor %}
-			</div>
-
-			<a id="load-more-button" href="#" class="btn btn-control btn-more" data-load-link="items-to-load.html" data-container="newsfeed-items-grid">
-				<svg class="olymp-three-dots-icon">
-					<use xlink:href="/media/svg-icons/sprites/icons.svg#olymp-three-dots-icon"></use>
-				</svg>
-			</a>
-			{% else %}
-			<h3>Nothing to see here yet! Go follow some designers!</h3>
-			{% endif %}
-			</div>
+			{% include 'partials/stream/newsfeed.html' %}
+			
 
 		</main>
 
@@ -171,7 +139,6 @@ $('.post-comment').click(function() {
 	var content = $(container).find('form textarea').val();
 	var url = '';
 
-	console.log("hit")
 
 	if (typeof posttype !== typeof undefined && posttype !== false) {
 		//This is a design
@@ -195,6 +162,23 @@ $('.post-comment').click(function() {
     		alert("Debug: " + xhr.responseText);
   		})
 
+})
+
+$('.share-design').click(function() {
+	var desid = parseInt($(this).closest("article").attr('design-id'));
+	var data = {
+		"profile": {{user.profile_user.pk}},
+		"design" : desid
+	}
+	console.log(data);
+	$.post('/design/api/share', data)
+ 		.fail(function(xhr, status, error) {
+    		alert("Debug: " + xhr.responseText);
+  		})
+  		.done(function() {
+  			// TODO: How to determine on render if liked or not? Can determine toggle from there.
+  			alert("Success");
+  		});
 })
 
 </script>

@@ -33,6 +33,9 @@ class Design(models.Model):
 	def get_likes(self):
 		return DesignLike.objects.all().filter(design=self)
 
+	def num_shares(self):
+		return DesignShare.objects.all().filter(design=self).count();
+
 
 class Status(models.Model):
 	profile = models.ForeignKey(Profile, on_delete=models.PROTECT)
